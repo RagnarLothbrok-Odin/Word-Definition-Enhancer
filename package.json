@@ -1,0 +1,19 @@
+{
+    "name": "Word-Definition-Enhancer",
+    "version": "1.0.0",
+    "main": "build/index.js",
+    "repository": "https://github.com/RagnarLothbrok-Odin/Word-Definition-Enhancer.git",
+    "author": "Ragnar Lothbrok <30740511+RagnarLothbrok-Odin@users.noreply.github.com>",
+    "license": "MIT",
+    "scripts": {
+      "start": "tsc && node build/index.js"
+    },
+    "dependencies": {
+      "axios": "^1.4.0"
+    },
+    "devDependencies": {
+      "@types/node": "^20.1.0",
+      "tsc": "^2.0.4",
+      "typescript": "^5.0.4"
+    }
+  }
