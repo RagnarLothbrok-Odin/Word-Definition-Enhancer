@@ -12,6 +12,10 @@ interface UpdatedWordData {
     definition: string[];
 }
 
+/**
+ * Checks if the "words.json" file exists and is a valid JSON file.
+ * If the file does not exist or is not valid, it displays an error message and exits the program.
+ */
 if (!existsSync('words.json')) {
     const jsonData = JSON.parse(readFileSync('words.json', 'utf8'));
     if (!jsonData) {
@@ -20,6 +24,10 @@ if (!existsSync('words.json')) {
     }
 }
 
+/**
+ * Checks if the "updated_words.json" file exists.
+ * If it exists, it displays a message to prevent accidental overwrites and exits the program.
+ */
 if (existsSync('updated_words.json')) {
     console.log('[Word Definition Enhancer] To prevent accidental overwrites, please remove the existing "updated_words.json" file.');
     process.exit(1);
@@ -27,6 +35,11 @@ if (existsSync('updated_words.json')) {
 
 const { apiKey } = process.env;
 
+/**
+ * Retrieves word information from an external API.
+ * @param word - The word for which to fetch information.
+ * @returns The word information or null if no data is found.
+ */
 async function getWordInfo(word: string): Promise<UpdatedWordData | null> {
     const url = `https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${apiKey}`;
 
@@ -55,6 +68,11 @@ async function getWordInfo(word: string): Promise<UpdatedWordData | null> {
     }
 }
 
+/**
+ * Processes an array of words to obtain word definitions and pronunciation.
+ * @param words - An array of words to process.
+ * @returns An array of processed word data.
+ */
 async function processWords(words: WordData): Promise<UpdatedWordData[]> {
     const updatedWords: UpdatedWordData[] = [];
     const totalWords = words.length;
@@ -74,10 +92,19 @@ async function processWords(words: WordData): Promise<UpdatedWordData[]> {
     return updatedWords;
 }
 
+/**
+ * Delays execution for a specified duration.
+ * @param ms - The duration to sleep in milliseconds.
+ * @returns A Promise that resolves after the specified duration.
+ */
 function sleep(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+/**
+ * Main function for reading JSON data, processing words, and writing updated data to a file.
+ * It also calculates the time taken for the operation.
+ */
 (async function() {
     const startTime = new Date().getTime();
 
