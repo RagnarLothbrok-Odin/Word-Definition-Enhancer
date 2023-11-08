@@ -64,7 +64,7 @@ function sleep(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-async function main() {
+(async function() {
     readFile('words.json', 'utf8', async (err, data) => {
         if (err) {
             console.error('Error reading JSON data from file:', err);
@@ -82,6 +82,4 @@ async function main() {
             }
         });
     });
-}
-
-main();
+})();
