@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { readFile, writeFile } from 'fs';
+import { readFile, writeFile, existsSync, readFileSync } from 'fs';
 import 'dotenv/config'
+import * as process from "process";
 
 type WordData = string;
 
@@ -9,6 +10,19 @@ interface UpdatedWordData {
     pronunciation: string;
     partOfSpeech: string;
     definition: string[];
+}
+
+if (!existsSync('words.json')) {
+    const jsonData = JSON.parse(readFileSync('words.json', 'utf8'));
+    if (!jsonData) {
+        console.log('[Word Definition Enhancer] The file "words.json" is empty or not a valid JSON file.');
+        process.exit(1);
+    }
+}
+
+if (existsSync('updated_words.json')) {
+    console.log('[Word Definition Enhancer] To prevent accidental overwrites, please remove the existing "updated_words.json" file.');
+    process.exit(1);
 }
 
 const { apiKey } = process.env;
