@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { readFile, writeFile } from 'fs';
+import 'dotenv/config'
 
 type WordData = string;
 
@@ -9,7 +10,7 @@ interface UpdatedWordData {
     type: string;
 }
 
-const apiKey = '9b226440-a339-4ed7-a43e-2e8569f8c0e6';
+const { apiKey } = process.env;
 
 async function getWordInfo(word: string): Promise<UpdatedWordData | null> {
     const url = `https://www.dictionaryapi.com/api/v3/references/collegiate/json/${word}?key=${apiKey}`;
