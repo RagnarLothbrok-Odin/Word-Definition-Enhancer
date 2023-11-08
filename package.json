@@ -4,7 +4,7 @@
   "main": "build/index.js",
   "repository": "https://github.com/RagnarLothbrok-Odin/Word-Definition-Enhancer.git",
   "author": "Ragnar Lothbrok <30740511+RagnarLothbrok-Odin@users.noreply.github.com>",
-  "license": "MIT",
+  "license": "GPL-3.0-or-later",
   "scripts": {
     "start": "tsc && node build/index.js"
   },
