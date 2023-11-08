@@ -6,8 +6,9 @@ type WordData = string;
 
 interface UpdatedWordData {
     word: string;
+    pronunciation: string;
+    partOfSpeech: string;
     definition: string[];
-    type: string;
 }
 
 const { apiKey } = process.env;
@@ -24,12 +25,14 @@ async function getWordInfo(word: string): Promise<UpdatedWordData | null> {
             return null;
         }
 
+        const pronunciation = data.hwi.hw ? data.hwi.hw.replace(/\*/g, ' - ') : '';
         const definition = Array.isArray(data.shortdef) ? data.shortdef : [];
-        const type = data.fl || '';
+        const partOfSpeech = data.fl || '';
 
         return {
             word,
-            type,
+            pronunciation,
+            partOfSpeech,
             definition,
         };
     } catch (error) {
