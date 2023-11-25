@@ -24,14 +24,33 @@ if (!existsSync('words.json')) {
     }
 }
 
+// Declare an array to store updated word data
+let updatedWords: UpdatedWordData[];
+
 /**
  * Checks if the "updated_words.json" file exists.
- * If it exists, it displays a message to prevent accidental overwrites and exits the program.
+ * If it exists and is a valid JSON, append data; otherwise, initialize an empty array.
  */
-if (existsSync('updated_words.json')) {
-    console.log('[Word Definition Enhancer] To prevent accidental overwrites, please remove the existing "updated_words.json" file.');
-    process.exit(1);
+const filePath = 'updated_words.json';
+
+if (existsSync(filePath)) {
+    try {
+        const jsonData = JSON.parse(readFileSync(filePath, 'utf8'));
+
+        if (!jsonData || !Array.isArray(jsonData)) {
+            console.error('[Word Definition Enhancer] The file "updated_words.json" is either empty or not a valid JSON array.');
+            process.exit(1);
+        }
+
+        updatedWords = jsonData;
+    } catch (error) {
+        console.error('[Word Definition Enhancer] Error parsing "updated_words.json":', error);
+        process.exit(1);
+    }
+} else {
+    updatedWords = [];
 }
+
 
 const { apiKey } = process.env;
 
@@ -74,7 +93,6 @@ async function getWordInfo(word: string): Promise<UpdatedWordData | null> {
  * @returns An array of processed word data.
  */
 async function processWords(words: WordData): Promise<UpdatedWordData[]> {
-    const updatedWords: UpdatedWordData[] = [];
     const totalWords = words.length;
 
     for (let i = 0; i < totalWords; i++) {
