@@ -1,5 +1,37 @@
-node_modules/
+# ========================
+# System generated files
+# ========================
+
+# macOS generated files
+.DS_Store
+
+# ========================
+# Build output
+# ========================
+
+# Build directory
 build/
+
+# ========================
+# Node.js related files
+# ========================
+
+# Environment variables
 .env
-.DS_STORE
+
+
+# ========================
+# Dependency management
+# ========================
+
+# Yarn: lock file and error log
+yarn-error.log
+.yarn/install-state.gz
+.pnp.cjs
+.pnp.loader.mjs
+
+# ========================
+# Dependency management
+# ========================
+
 updated_words.json
